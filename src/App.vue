@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab border-bottom-1px">
       <router-link to="/goods" tag="div" class="tab-item">商品</router-link>
       <router-link to="/ratings" tag="div" class="tab-item">评价</router-link>
@@ -12,7 +12,24 @@
 
 <script>
   import header from '@/components/header/header'
+  import api from '@/api'
+
+  const ERR_OK = 0
+
   export default {
+    data () {
+      return {
+        seller: {}
+      }
+    },
+    created () {
+      api.getSeller().then((response) => {
+        if (response.data.errno === ERR_OK) {
+          this.seller = response.data.data
+          console.log(this.seller)
+        }
+      })
+    },
     components: {
       'v-header': header
     }
