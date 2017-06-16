@@ -13,7 +13,7 @@
           {{seller.description}}/{{seller.deliveryTime}}分钟送达
         </div>
         <div v-if="seller.supports" class="support">
-          <span class="icon" :class="classMap[seller.supports[0].type]"></span>
+          <type-icon :type="seller.supports[0].type" :size="24" wrapper="v-header"></type-icon>
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
@@ -44,7 +44,7 @@
               </div>
               <ul v-if="seller.supports" class="supports">
                 <li class="support-item" v-for="item in seller.supports">
-                  <span class="icon" :class="classMap[item.type]"></span><span class="text">{{item.description}}</span>
+                  <type-icon :type="item.type" :size="32" wrapper="v-header"></type-icon><span class="text">{{item.description}}</span>
                 </li>
               </ul>
               <div class="title">
@@ -64,8 +64,10 @@
     </transition>
   </div>
 </template>
-<script>
-  import star from '@/components/star/star'
+<script type="text/ecmascript-6">
+  import star from '@/components/star/star';
+  import typeIcon from '@/components/typeIcon/typeIcon';
+
   export default {
     props: {
       seller: {
@@ -75,23 +77,21 @@
     data () {
       return {
         detailShow: false
-      }
+      };
     },
     methods: {
       showDetail () {
-        this.detailShow = true
+        this.detailShow = true;
       },
       hideDetail () {
-        this.detailShow = false
+        this.detailShow = false;
       }
     },
-    created () {
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-    },
     components: {
-      star
+      star,
+      typeIcon
     }
-  }
+  };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../common/stylus/mixin.styl'
@@ -133,27 +133,9 @@
           margin-bottom: 10px
         .support
           margin-bottom: 2px
-          .icon
-            display: inline-block
-            vertical-align: top
-            width: 12px
-            height: 12px
-            background-size: 12px 12px
-            background-repeat: no-repeat
-            &.decrease
-              bg-image(decrease_1)
-            &.discount
-              bg-image(discount_1)
-            &.guarantee
-              bg-image(guarantee_1)
-            &.invoice
-              bg-image(invoice_1)
-            &.special
-              bg-image(special_1)
           .text
             display: inline-block
             line-height: 12px
-            margin-left: 4px
             font-size: 10px
       .support-count
         position: absolute
@@ -163,7 +145,7 @@
         height: 24px
         line-height: 24px
         border-radius: 14px
-        background-color: rgba(0,0,0,0.2)  
+        background-color: rgba(0,0,0,0.2)
         .count
           vertical-align: top
           font-size: 10px
@@ -260,24 +242,6 @@
               font-size: 0
               &:last-child
                 margin-bottom: 0
-              .icon
-                display: inline-block
-                vertical-align: top
-                width: 16px
-                height: 16px
-                margin-right: 6px
-                background-size: 16px 16px
-                background-repeat: no-repeat
-                &.decrease
-                  bg-image(decrease_2)
-                &.discount
-                  bg-image(discount_2)
-                &.guarantee
-                  bg-image(guarantee_2)
-                &.invoice
-                  bg-image(invoice_2)
-                &.special
-                  bg-image(special_2)
               .text
                 font-size: 12px
                 line-height: 16px

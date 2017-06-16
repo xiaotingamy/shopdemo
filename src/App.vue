@@ -6,34 +6,34 @@
       <router-link to="/ratings" tag="div" class="tab-item">评价</router-link>
       <router-link to="/seller" tag="div" class="tab-item">商家</router-link>
     </div>
-    <router-view></router-view>
+    <router-view :seller="seller"></router-view>
   </div>
 </template>
 
 <script>
-  import header from '@/components/header/header'
-  import api from '@/api'
+  import header from '@/components/header/header';
+  import api from '@/api';
 
-  const ERR_OK = 0
+  const ERR_OK = 0;
 
   export default {
     data () {
       return {
         seller: {}
-      }
+      };
     },
     created () {
       api.getSeller().then((response) => {
         if (response.data.errno === ERR_OK) {
-          this.seller = response.data.data
-          console.log(this.seller)
+          this.seller = response.data.data;
+//          console.log(this.seller);
         }
-      })
+      });
     },
     components: {
       'v-header': header
     }
-  }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
