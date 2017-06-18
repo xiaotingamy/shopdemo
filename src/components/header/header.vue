@@ -204,7 +204,6 @@
         transition: all .5s
       &.fade-enter, &.fade-leave-active
         opacity: 0
-        backdrop-filter: none
       .detail-wrapper
         width:100%
         min-height: 100%
