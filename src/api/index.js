@@ -8,5 +8,8 @@ export default {
   },
   getGoods () {
     return axios.get('/api/goods');
+  },
+  getRatings () {
+    return axios.get('/api/ratings');
   }
 };

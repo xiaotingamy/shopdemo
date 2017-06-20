@@ -26,7 +26,6 @@
       api.getSeller().then((response) => {
         if (response.data.errno === ERR_OK) {
           this.seller = response.data.data;
-//          console.log(this.seller);
         }
       });
     },

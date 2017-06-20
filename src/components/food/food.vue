@@ -109,7 +109,7 @@
         }
         Vue.set(this.food, 'count', 1);
         this.$emit('dropFood', event.target);
-        console.log(event.target);
+//        console.log(event.target);
       },
       _drop (target) {
         this.$emit('dropFood', target);
@@ -129,14 +129,14 @@
         this.$nextTick(() => {
           this.scroll.refresh();
         });
-        console.log(this.selectType);
+//        console.log(this.selectType);
       },
       onlyContentChange (only) {
         this.onlyContent = only;
         this.$nextTick(() => {
           this.scroll.refresh();
         });
-        console.log(this.onlyContent);
+//        console.log(this.onlyContent);
       }
     },
     filters: {
@@ -163,6 +163,7 @@
     bottom: 48px
     width: 100%
     background: #fff
+    overflow: hidden
     &.move-enter-active, &.move-leave-active
       transition: all .5s
     &.move-enter, &.move-leave-active
