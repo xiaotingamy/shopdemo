@@ -1,5 +1,5 @@
 <template>
-  <div class="split border-top-1px border-bottom-1px">
+  <div class="split">
   </div>
 </template>
 
@@ -13,7 +13,7 @@
   .split
     width:100%
     height 16px
-    border-top-1px(rgba(7,17,27,0.1))
-    border-bottom-1px(rgba(7,17,27,0.1))
+    border-top: 1px solid rgba(7,17,27,0.1)
+    border-bottom: 1px solid rgba(7,17,27,0.1)
     background-color: #f3f7f5
 </style>

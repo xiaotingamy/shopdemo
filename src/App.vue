@@ -6,26 +6,34 @@
       <router-link to="/ratings" tag="div" class="tab-item">评价</router-link>
       <router-link to="/seller" tag="div" class="tab-item">商家</router-link>
     </div>
-    <router-view :seller="seller"></router-view>
+    <keep-alive>
+      <router-view :seller="seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
   import header from '@/components/header/header';
   import api from '@/api';
+  import {urlParse} from '@/common/js/util';
 
   const ERR_OK = 0;
 
   export default {
     data () {
       return {
-        seller: {}
+        seller: {
+          id: (() => {
+            let queryParam = urlParse();
+            return queryParam.id;
+          })()
+        }
       };
     },
     created () {
-      api.getSeller().then((response) => {
+      api.getSeller({id: this.seller.id}).then((response) => {
         if (response.data.errno === ERR_OK) {
-          this.seller = response.data.data;
+          this.seller = Object.assign({}, this.seller, response.data.data);
         }
       });
     },

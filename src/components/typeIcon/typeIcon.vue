@@ -66,14 +66,26 @@
       width: 16px
       height: 16px
       background-size: 16px 16px
-      &.decrease
-        bg-image(decrease_1)
-      &.discount
-        bg-image(discount_1)
-      &.guarantee
-        bg-image(guarantee_1)
-      &.invoice
-        bg-image(invoice_1)
-      &.special
-        bg-image(special_1)
+      &.v-header
+        &.decrease
+          bg-image(decrease_2)
+        &.discount
+          bg-image(discount_2)
+        &.guarantee
+          bg-image(guarantee_2)
+        &.invoice
+          bg-image(invoice_2)
+        &.special
+          bg-image(special_2)
+      &.v-seller
+        &.decrease
+          bg-image(decrease_4)
+        &.discount
+          bg-image(discount_4)
+        &.guarantee
+          bg-image(guarantee_4)
+        &.invoice
+          bg-image(invoice_4)
+        &.special
+          bg-image(special_4)
 </style>
