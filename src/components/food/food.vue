@@ -1,6 +1,6 @@
 <template>
   <transition name="move">
-    <div class="food" v-show="showFlag" ref="food">
+    <scroll :data="food" class="food" v-show="showFlag">
       <div class="food-content">
         <div class="image-header">
           <img class="image" :src="food.image">
@@ -33,7 +33,7 @@
         <split></split>
         <div class="rating">
           <h1 class="title">商品评价</h1>
-          <ratingselect :ratings="food.ratings" :select-type="selectType" :only-content="onlyContent" :desc="desc" v-on:ratingTypeSelect="selectTypeChange" v-on:onlyContentToggle="onlyContentChange"></ratingselect>
+          <ratingselect :ratings="food.ratings" :select-type="selectType" :only-content="onlyContent" :desc="desc" v-on:select="selectRating" v-on:toggle="toggleContent"></ratingselect>
           <div class="rating-wrapper">
             <ul v-show="food.ratings && food.ratings.length">
               <li v-show="needShow(rating.rateType, rating.text)" v-for="rating in food.ratings" class="rating-item border-bottom-1px">
@@ -53,7 +53,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </scroll>
   </transition>
 </template>
 
@@ -62,7 +62,8 @@
   import cartcontrol from '@/components/cartcontrol/cartcontrol';
   import split from '@/components/split/split';
   import ratingselect from '@/components/ratingselect/ratingselect';
-  import BScroll from 'better-scroll';
+//  import BScroll from 'better-scroll';
+  import scroll from '@/components/scroll/scroll';
   import {formatDate} from '@/common/js/date';
 
   const ALL = 2;
@@ -90,15 +91,15 @@
         this.showFlag = true;
         this.selectType = ALL;
         this.onlyContent = false;
-        this.$nextTick(() => {
-          if (!this.scroll) {
-            this.scroll = new BScroll(this.$refs.food, {
-              click: true
-            });
-          } else {
-            this.scroll.refresh();
-          }
-        });
+//        this.$nextTick(() => {
+//          if (!this.scroll) {
+//            this.scroll = new BScroll(this.$refs.food, {
+//              click: true
+//            });
+//          } else {
+//            this.scroll.refresh();
+//          }
+//        });
       },
       hideDetail () {
         this.showFlag = false;
@@ -109,7 +110,6 @@
         }
         Vue.set(this.food, 'count', 1);
         this.$emit('dropFood', event.target);
-//        console.log(event.target);
       },
       _drop (target) {
         this.$emit('dropFood', target);
@@ -124,19 +124,17 @@
           return type === this.selectType;
         }
       },
-      selectTypeChange (type) {
+      selectRating (type) {
         this.selectType = type;
-        this.$nextTick(() => {
-          this.scroll.refresh();
-        });
-//        console.log(this.selectType);
+//        this.$nextTick(() => {
+//          this.scroll.refresh();
+//        });
       },
-      onlyContentChange (only) {
-        this.onlyContent = only;
-        this.$nextTick(() => {
-          this.scroll.refresh();
-        });
-//        console.log(this.onlyContent);
+      toggleContent () {
+        this.onlyContent = !this.onlyContent;
+//        this.$nextTick(() => {
+//          this.scroll.refresh();
+//        });
       }
     },
     filters: {
@@ -148,7 +146,8 @@
     components: {
       cartcontrol,
       split,
-      ratingselect
+      ratingselect,
+      scroll
     }
   };
 </script>

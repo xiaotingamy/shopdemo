@@ -25,7 +25,7 @@
         </div>
       </div>
       <split></split>
-      <ratingselect :ratings="ratings" :select-type="selectType" :only-content="onlyContent" :desc="desc" v-on:ratingTypeSelect="selectTypeChange" v-on:onlyContentToggle="onlyContentChange"></ratingselect>
+      <ratingselect :ratings="ratings" :select-type="selectType" :only-content="onlyContent" :desc="desc" v-on:select="selectRating" v-on:toggle="toggleContent"></ratingselect>
       <div class="rating-wrapper">
         <ul v-show="ratings && ratings.length">
           <li v-show="needShow(rating.rateType, rating.text)" v-for="rating in ratings" class="rating-item border-bottom-1px">
@@ -110,19 +110,17 @@
           return type === this.selectType;
         }
       },
-      selectTypeChange (type) {
+      selectRating (type) {
         this.selectType = type;
         this.$nextTick(() => {
           this.scroll.refresh();
         });
-//        console.log(this.selectType);
       },
-      onlyContentChange (only) {
-        this.onlyContent = only;
+      toggleContent () {
+        this.onlyContent = !this.onlyContent;
         this.$nextTick(() => {
           this.scroll.refresh();
         });
-//        console.log(this.onlyContent);
       }
     },
     filters: {

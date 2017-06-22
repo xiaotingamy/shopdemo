@@ -19,11 +19,13 @@
         </div>
       </div>
       <div class="ball-container">
-        <transition-group name="drop" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter">
-          <div class="ball" v-for="(ball, index) in balls" :key="index" v-show="ball.show">
-            <div class="inner"></div>
-          </div>
-        </transition-group>
+        <div v-for="(ball, index) in balls" :key="index" >
+          <transition name="drop" v-on:before-enter="beforeDrop" v-on:enter="dropping" v-on:after-enter="afterDrop">
+            <div class="ball" v-show="ball.show">
+              <div class="inner inner-hook"></div>
+            </div>
+          </transition>
+        </div>
       </div>
       <transition name="fold">
         <div class="shopcart-list" v-show="listShow">
@@ -118,7 +120,7 @@
       hideList () {
         this.fold = true;
       },
-      beforeEnter (el) {
+      beforeDrop (el) {
         let count = this.balls.length;
         while (count--) {
           let ball = this.balls[count];
@@ -135,7 +137,7 @@
           }
         }
       },
-      enter (el) {
+      dropping (el, done) {
         /* eslint-disable no-unused-vars */
         let rf = el.offsetHeight; // 触发重绘html
         this.$nextTick(() => {
@@ -144,9 +146,10 @@
           let inner = el.getElementsByClassName('inner')[0];
           inner.style.webkitTransform = `translate3d(0,0,0)`;
           inner.style.transform = `translate3d(0,0,0)`;
+          el.addEventListener('transitionend', done);
         });
       },
-      afterEnter (el) {
+      afterDrop (el) {
         let ball = this.dropBalls.shift();
         if (ball) {
           ball.show = false;

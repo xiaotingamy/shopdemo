@@ -1,9 +1,9 @@
 <template>
   <div class="ratingselect">
     <div class="rating-type border-bottom-1px">
-      <span @click="select(2,$event)" class="block positive" :class="{'active': selectTypeInner === 2}">{{desc.all}}<span class="count">{{ratings.length}}</span></span>
-      <span @click="select(0,$event)" class="block positive" :class="{'active': selectTypeInner === 0}">{{desc.positive}}<span class="count">{{positives.length}}</span></span>
-      <span @click="select(1,$event)" class="block negative" :class="{'active': selectTypeInner === 1}">{{desc.negative}}<span class="count">{{negatives.length}}</span></span>
+      <span @click="select(2,$event)" class="block positive" :class="{'active': selectType === 2}">{{desc.all}}<span class="count">{{ratings.length}}</span></span>
+      <span @click="select(0,$event)" class="block positive" :class="{'active': selectType === 0}">{{desc.positive}}<span class="count">{{positives.length}}</span></span>
+      <span @click="select(1,$event)" class="block negative" :class="{'active': selectType === 1}">{{desc.negative}}<span class="count">{{negatives.length}}</span></span>
     </div>
     <div @click="toggleContent($event)" class="switch border-bottom-1px" :class="{'on': onlyContent}">
       <span class="icon-check_circle"></span>
@@ -44,12 +44,6 @@
         }
       }
     },
-    data () {
-      return {
-        selectTypeInner: this.selectType,
-        onlyContentInner: this.onlyContent
-      };
-    },
     computed: {
       positives () {
         return this.ratings.filter((rating) => {
@@ -67,15 +61,13 @@
         if (!event._constructed) {
           return;
         }
-        this.selectTypeInner = type;
-        this.$emit('ratingTypeSelect', type);
+        this.$emit('select', type);
       },
       toggleContent (event) {
         if (!event._constructed) {
           return;
         }
-        this.onlyContentInner = !this.onlyContentInner;
-        this.$emit('onlyContentToggle', this.onlyContentInner);
+        this.$emit('toggle');
       }
     }
   };
